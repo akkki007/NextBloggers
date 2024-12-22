@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import connectDB from "../lib/db";
 
 // Ensure database connection
-connectDB();
+await connectDB();
 
 const blogSchema = new mongoose.Schema({
   title: String,
