@@ -1,8 +1,7 @@
-// app/dashboard/page.js
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
+import Link from "next/link";
 
 const Page = () => {
   const [user, setUser] = useState(null);
@@ -50,7 +49,7 @@ const Page = () => {
   }
 
   if (!user) {
-    return null; // Will redirect to login
+    return null;
   }
 
   const handleLogout = async () => {
@@ -75,12 +74,30 @@ const Page = () => {
               <p className="text-gray-600">Email:</p>
               <p className="text-gray-800">{user.email}</p>
             </div>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            >
-              Logout
-            </button>
+            <div className="text-black flex font-medium flex-col gap-4">
+              <Link href={`/dashboard/blogs/create/${user._id}`}>
+                <button className="w-full px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+                  Create a blog
+                </button>
+              </Link>
+              <Link href={`/dashboard/blogs/allblogs/${user._id}`}>
+                <button className="w-full px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">
+                  My blogs
+                </button>
+              </Link>
+
+              <Link href="/">
+                <button className="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                  Go to Home
+                </button>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </div>

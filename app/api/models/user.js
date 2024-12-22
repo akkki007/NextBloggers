@@ -1,26 +1,22 @@
-import mongoose, { mongo } from "mongoose";
+// app/api/models/user.js
+import mongoose from "mongoose";
+import connectDB from "../lib/db";
 
-mongoose
-  .connect("mongodb://localhost:27017/blogs")
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("Error connecting to MongoDB:", err));
+// Ensure database connection
+await connectDB();
 
 const userSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
   token: String,
-  blogs: {
-    type: [
-      {
-        title: String,
-        content: String,
-        date: { type: Date, default: Date.now },
-      },
-    ],
-    default: [],
-  },
+  blogs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Blog",
+    },
+  ],
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 export default User;
