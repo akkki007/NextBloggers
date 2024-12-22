@@ -2,12 +2,9 @@
 import { NextResponse } from "next/server";
 import User from "../../models/user";
 import Blog from "../../models/blogs";
-import connectDB from "../../lib/db";
 
 export async function POST(request) {
   try {
-    await connectDB();
-
     const { userId } = await request.json();
 
     if (!userId) {

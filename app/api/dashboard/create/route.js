@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
 import Blog from "../../models/blogs";
 import User from "../../models/user";
-import connectDB from "../../lib/db";
 
 export async function POST(request) {
   try {
-    await connectDB();
-
     // Parse and validate request body
     const { title, content, userId } = await request.json();
     console.log("Received blog data:", { title, content, userId });
